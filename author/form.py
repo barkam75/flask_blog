@@ -12,6 +12,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField('New Password',[
         validators.Required(),
         validators.EqualTo('confirm', message="Passwords do not match"),
+        validators.Length(min=4,max=80)
         ])
     confirm = PasswordField('Repeat Password')
     
