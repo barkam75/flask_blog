@@ -16,5 +16,5 @@ class Author(db.Model):
         self.is_author=is_author
     
     def __repr__(self):
-        return '<Author dupa %s>' %self.username
+        return '<Author %r>' %self.username
         
