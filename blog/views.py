@@ -7,6 +7,7 @@ from author.models import Author
 
 from blog.models import Blog
 from author.decorators import login_required
+import bcrypt
 
 @app.route('/')
 @app.route('/index')
@@ -27,12 +28,13 @@ def setup():
     form = SetupForm()
     print("Dupa")
     if form.validate_on_submit():
-        print("Validated dupa")
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(form.password.data,salt)
         author = Author(
             form.fullname.data,
             form.email.data,
             form.username.data,
-            form.password.data,
+            hashed_password,
             True)
         db.session.add(author)
         db.session.flush()
