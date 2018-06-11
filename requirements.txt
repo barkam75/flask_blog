@@ -3,5 +3,6 @@ pymysql
 flask-sqlalchemy
 flask-script
 flask-wtf
+flask-migrate
 
 
