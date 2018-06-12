@@ -12,7 +12,7 @@ class Blog(db.Model):
         
     def __repr__(self):
         return '<Blog %r>' % self.name
-
+ 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     blog_id =db.Column(db.Integer,db.ForeignKey('blog.id'))
@@ -46,4 +46,4 @@ class Category(db.Model):
          self.name = name
     
      def __repr__(self):
-        return '<Category %r>' % self.name
+        return self.name

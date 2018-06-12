@@ -1,12 +1,12 @@
 from flask_blog import app
 from flask import render_template, redirect, flash, url_for,session,abort
-from blog.form import SetupForm
+from blog.form import SetupForm, PostForm
 
 from flask_blog import db
 from author.models import Author
 
 from blog.models import Blog
-from author.decorators import login_required
+from author.decorators import login_required, author_required
 import bcrypt
 
 @app.route('/')
@@ -25,7 +25,7 @@ def admin():
     else:
         abort(403)
 
-@app.route('/setup', methods=('GET', 'POST'))
+@app.route('/setup',methods=('GET', 'POST'))
 def setup():
     error=""
     form = SetupForm()
@@ -42,8 +42,7 @@ def setup():
         db.session.add(author)
         db.session.flush()
         if author.id:
-            blog = Blog(
-                form.name.data,
+            blog = Blog(form.name.data,
                 author.id
                 )
             db.session.add(blog)
@@ -62,8 +61,12 @@ def setup():
             
     return render_template('blog/setup.html', form=form, error=error)
 
-@app.route('/post')
-@login_required
+@app.route('/post', methods=('GET','POST'))
+@author_required
 def post():
-    return 'Blog post'
+    form=PostForm()
+    return render_template('blog/post.html',form=form)
     
+@app.route('/article')
+def article():
+    return render_template('blog/article.html')
