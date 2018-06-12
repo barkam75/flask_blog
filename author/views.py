@@ -17,16 +17,16 @@ def login():
         #Save redirection for post login action
         session['next'] = request.args.get('next', None)
     if form.validate_on_submit():
-        authors = Author.query.filter_by(
+        author = Author.query.filter_by(
             username=form.username.data,
-            ).limit(1)
-        if authors.count():
-            author = authors[0]
+            ).first()
+        if author:
             #Interesting stuff you hash form data with salt of author password
             #in order to compare two hashed passwords
             if bcrypt.hashpw(form.password.data,author.password)==author.password:
                 #If login was successful save username to the session
                 session['username']=form.username.data
+                session['is_author']=author.is_author
                 if 'next' in session:
                     #If session has set next field perform return back after login
                     next = session.get('next')
