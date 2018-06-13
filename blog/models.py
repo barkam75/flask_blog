@@ -28,7 +28,7 @@ class Post(db.Model):
         self.blog_id = blog.id
         self.author_id=author.id
         self.title=title
-        self.body=body
+        self.body=body 
         self.category_id = category.id
         self.slug=slug
         if publish_date is None:
