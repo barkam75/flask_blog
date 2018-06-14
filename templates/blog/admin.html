@@ -12,13 +12,23 @@
                     {% for message in messages %}
                         <li>{{message}}</li>
                     {% endfor %}
-                </ul>
+                </ul>{{url_for('artcile',slug=post.slug)}}
             </div>
-        {%endif%}
-        {%endwith%}
-        <p>
-            Welcome, {{session.username}} - <a href="{{url_for('logout')}}"> logout</a>
-        </p>
+        {%endif%}{{url_for('artcile',slug=post.slug)}}
+        {%endwith%}{{url_for('artcile',slug=post.slug)}}
+        <p>{{url_for('artcile',slug=post.slug)}}
+            Welcome, {{sessi{{url_for('artcile',slug=post.slug)}}on.username}} - <a href="{{url_for('logout')}}"> logout</a>
+        </p>{{url_for('artcile',slug=post.slug)}}
+        <div class="post-lis{{url_for('artcile',slug=post.slug)}}t">
+            {%for post in po{{url_for('artcile',slug=post.slug)}}sts%}
+            <div class="post-item">
+                <h4><a href="{{url_for('article',slug=post.slug)}}">{{post.title}}</a> </h4>
+                <div class="text-muted">Posted by <a href="#">{{post.author.fullname}}</a>
+                    on {{post.publish_date.strftime('%Y-%m-%d')}}</div>
+                    in <a href="#">{{post.category.name}}</a>
+            </div>
+            {%endfor%}
+        </div>
     </div>
 </div>
 {% endblock %}
